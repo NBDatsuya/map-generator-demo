@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>岛屿地图生成器 | Island Map Generator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap">
+    <div class="panel">
+      <!-- 标题区域 -->
+      <div class="panel-header">
+        <h1>🏝️ 岛屿地图生成器</h1>
+        <p>Island Map Generator</p>
+      </div>
+
+      <!-- 地图设置 -->
+      <div class="sec">地图 · Map</div>
+      <div class="row2">
+        <div>
+          <label class="lbl">宽 Width</label>
+          <input type="number" id="mw" value="120" min="60" max="240" />
+        </div>
+        <div>
+          <label class="lbl">高 Height</label>
+          <input type="number" id="mh" value="90" min="60" max="200" />
+        </div>
+      </div>
+      <div class="row2">
+        <div>
+          <label class="lbl">像素 Tile px</label>
+          <input type="number" id="tile" value="6" min="3" max="12" />
+        </div>
+        <div>
+          <label class="lbl">种子 Seed</label>
+          <input type="number" id="seed" value="42" />
+        </div>
+      </div>
+
+      <!-- 数量设置 -->
+      <div class="sec">数量 · Count</div>
+      <div class="row2">
+        <div>
+          <label class="lbl">岛屿 Islands n</label>
+          <input type="number" id="ni" value="3" min="1" max="8" />
+        </div>
+        <div>
+          <label class="lbl">山峰 Mountains m</label>
+          <input type="number" id="nm" value="4" min="0" max="20" />
+        </div>
+      </div>
+      <div class="row2">
+        <div>
+          <label class="lbl">湖泊 Lakes x</label>
+          <input type="number" id="nx" value="3" min="0" max="15" />
+        </div>
+        <div>
+          <label class="lbl">森林 Forests y</label>
+          <input type="number" id="ny" value="5" min="0" max="20" />
+        </div>
+      </div>
+
+      <!-- 半径范围 -->
+      <div class="sec">半径范围 · Radius Range</div>
+
+      <label class="lbl">岛屿 Island radius <span>(min – max)</span></label>
+      <div class="range-row">
+        <div><input type="number" id="ri0" value="12" min="4" max="38" /></div>
+        <div class="range-sep">–</div>
+        <div><input type="number" id="ri1" value="22" min="4" max="40" /></div>
+      </div>
+
+      <label class="lbl">山峰 Mountain radius <span>(min – max)</span></label>
+      <div class="range-row">
+        <div><input type="number" id="rm0" value="3" min="2" max="14" /></div>
+        <div class="range-sep">–</div>
+        <div><input type="number" id="rm1" value="7" min="2" max="15" /></div>
+      </div>
+
+      <label class="lbl">湖泊 Lake radius <span>(min – max)</span></label>
+      <div class="range-row">
+        <div><input type="number" id="rx0" value="2" min="1" max="10" /></div>
+        <div class="range-sep">–</div>
+        <div><input type="number" id="rx1" value="6" min="1" max="12" /></div>
+      </div>
+
+      <label class="lbl">森林 Forest radius <span>(min – max)</span></label>
+      <div class="range-row">
+        <div><input type="number" id="ry0" value="4" min="2" max="13" /></div>
+        <div class="range-sep">–</div>
+        <div><input type="number" id="ry1" value="9" min="2" max="15" /></div>
+      </div>
+
+      <!-- 按钮组 -->
+      <div class="btn-group">
+        <button class="btn primary" id="generateBtn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+          生成地图 Generate
+        </button>
+        <button class="btn secondary" id="randomSeedBtn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 2v6h-6"></path>
+            <path d="M3 12a9 9 0 0 1 15-6.7L21 8"></path>
+            <path d="M3 22v-6h6"></path>
+            <path d="M21 12a9 9 0 0 1-15 6.7L3 16"></path>
+          </svg>
+          随机种子 Random seed
+        </button>
+      </div>
+
+      <!-- 图例 -->
+      <div class="legend">
+        <div class="sec">图例 · Legend</div>
+        <div class="legend-grid">
+          <div class="leg-row">
+            <div class="sw" style="background: #1a1a2e"></div>
+            海洋 Ocean
+          </div>
+          <div class="leg-row">
+            <div class="sw" style="background: #d4a843"></div>
+            岛屿 Island
+          </div>
+          <div class="leg-row">
+            <div class="sw" style="background: #8b8b8b"></div>
+            山峰 Mountain
+          </div>
+          <div class="leg-row">
+            <div class="sw" style="background: #3a8fd6"></div>
+            湖泊 Lake
+          </div>
+          <div class="leg-row">
+            <div class="sw" style="background: #2d7a2d"></div>
+            森林 Forest
+          </div>
+        </div>
+      </div>
+
+      <!-- 统计信息 -->
+      <div class="stat" id="stats">✨ 调整参数后点击生成地图</div>
+    </div>
+
+    <div class="canvas-wrap">
+      <canvas id="map"></canvas>
+    </div>
+  </div>
+
+  <script src="index.js"></script>
+</body>
+</html>

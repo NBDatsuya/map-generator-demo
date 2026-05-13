@@ -1,0 +1,370 @@
+/* ============================================
+   Interactive Island Map Generator - Styles
+   交互式岛屿地图生成器 - 样式表
+   ============================================ */
+
+:root {
+  /* 主题色 */
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
+  --color-primary-light: #3b82f620;
+
+  /* 背景色 */
+  --color-bg: #0f172a;
+  --color-surface: #1e293b;
+  --color-surface-hover: #334155;
+  --color-input-bg: #0f172a;
+
+  /* 文字色 */
+  --color-text: #f1f5f9;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+
+  /* 边框色 */
+  --color-border: #334155;
+  --color-border-light: #1e293b;
+
+  /* 圆角 */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* 阴影 */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.15);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  height: 100dvh;
+  line-height: 1.5;
+  overflow: hidden;
+}
+
+.wrap {
+  display: flex;
+  gap: 24px;
+  padding: 16px;
+  height: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ========== 左侧面板 ========== */
+.panel {
+  width: 280px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--color-surface);
+  padding: 16px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+  overflow-y: auto;
+  max-height: 100%;
+}
+
+/* 标题区域 */
+.panel-header {
+  text-align: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.panel-header h1 {
+  font-size: 18px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #60a5fa, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 4px;
+}
+
+.panel-header p {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+/* 分区标题 */
+.sec {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.sec:first-of-type {
+  margin-top: 0;
+}
+
+/* 输入行布局 */
+.row2 {
+  display: flex;
+  gap: 10px;
+}
+
+.row2 > div {
+  flex: 1;
+  min-width: 0;
+}
+
+/* 标签样式 */
+.lbl {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  display: block;
+  margin-bottom: 6px;
+  line-height: 1.3;
+  font-weight: 500;
+}
+
+.lbl span {
+  color: var(--color-text-muted);
+  font-size: 11px;
+  font-weight: 400;
+}
+
+/* 数字输入框 */
+input[type="number"] {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-input-bg);
+  color: var(--color-text);
+  transition: all 0.15s ease;
+  -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"]:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+input[type="number"]:hover:not(:focus) {
+  border-color: var(--color-text-muted);
+}
+
+/* 范围输入行 */
+.range-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.range-row > div {
+  flex: 1;
+  min-width: 0;
+}
+
+.range-sep {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+  line-height: 1;
+  text-align: center;
+}
+
+/* ========== 按钮样式 ========== */
+.btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.btn {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+  color: white;
+  box-shadow: var(--shadow-sm), var(--shadow-glow);
+}
+
+.btn.primary:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md), 0 0 25px rgba(59, 130, 246, 0.25);
+}
+
+.btn.primary:active {
+  transform: translateY(0);
+}
+
+.btn.secondary {
+  background: var(--color-surface-hover);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+}
+
+.btn.secondary:hover {
+  background: var(--color-border);
+  color: var(--color-text);
+}
+
+/* ========== 图例 ========== */
+.legend {
+  background: var(--color-bg);
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  margin-top: 4px;
+}
+
+.legend .sec {
+  margin-top: 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.legend-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.leg-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.sw {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
+}
+
+/* 统计信息 */
+.stat {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  text-align: center;
+  padding: 8px;
+  background: var(--color-bg);
+  border-radius: var(--radius-sm);
+  line-height: 1.6;
+}
+
+.stat span {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* ========== 画布区域 ========== */
+.canvas-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.canvas-wrap::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent);
+}
+
+canvas {
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  image-rendering: pixelated;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
+
+/* ========== 响应式 ========== */
+@media (max-width: 768px) {
+  .wrap {
+    flex-direction: column;
+    padding: 16px;
+  }
+
+  .panel {
+    width: 100%;
+    position: static;
+  }
+
+  .canvas-wrap {
+    min-height: 400px;
+  }
+}
+
+/* ========== 动画 ========== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.panel {
+  animation: fadeIn 0.3s ease;
+}
+
+.canvas-wrap {
+  animation: fadeIn 0.4s ease 0.1s both;
+}
