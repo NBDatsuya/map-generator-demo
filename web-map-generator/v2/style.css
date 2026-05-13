@@ -244,6 +244,13 @@ input[type="number"]:hover:not(:focus) {
   color: var(--color-text);
 }
 
+/* 复制按钮成功状态 */
+.btn.copy-success {
+  background: #16a34a;
+  color: white;
+  border-color: #16a34a;
+}
+
 /* ========== 图例 ========== */
 .legend {
   background: var(--color-bg);
