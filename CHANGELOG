@@ -1,5 +1,42 @@
 # Changelog
 
+## [v2-a2] - 2026-05-13
+
+### Added
+
+- **地图数据导出功能** (web-map-generator/v2)
+  - 新增 `exportMapData()` 函数导出完整地图 JSON
+  - 复制到剪贴板按钮支持
+  - 导出包含 metadata、params、terrainEnum、islands 数据结构
+  - 新增 `compress.js` 模块
+  - islands.grid 和 vertices 数据使用 gzip + base64 双重压缩
+  - 增量编码减小数值范围
+  - 导出 JSON 无缩进空格
+  - 控制台输出压缩效果统计
+
+### Breaking Changes
+
+- **地图生成器完全重构** (web-map-generator/v2)
+  - 分离岛屿层和地形层数据结构
+  - Island 类现在包含独立的 `grid`、`vertices`、`offsetX/offsetY`
+  - 移除全局 grid，改为每个岛屿独立的网格数据
+  - 使用正值 `ISLAND: 1` 替代负数标记岛屿区域
+  - 修复 Uint8Array 无法存储负数导致的颜色映射失败 bug
+  - 特征生成改为在岛屿网格内独立操作
+
+### Changed
+
+- **UI 布局重组** (web-map-generator/v2)
+  - '地图 · Map' 改为 '画布 · Canvas'
+  - 默认画布尺寸从 120×90 改为 320×320
+  - 添加 '画布像素' 标签带单位 (px) 标注
+  - 新增 '随机参数' 分区放置种子控制
+  - HTML 格式和缩进优化
+
+### Style
+
+- 复制按钮成功状态样式：绿色背景高亮
+
 ## [v2-a1] - 2026-05-13
 
 ### Fixed
