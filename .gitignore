@@ -1,2 +1,18 @@
+# Python
 venv
 **/venv
+__pycache__
+*.pyc
+*.pyo
+*.egg-info
+.pytest_cache
+*.egg
+
+# Editor
+.DS_Store
+*.swp
+*.swo
+.vscode
+
+# Dependencies (if installed locally)
+node_modules
