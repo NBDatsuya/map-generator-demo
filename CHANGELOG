@@ -1,0 +1,87 @@
+# Changelog
+
+## [v2-a1] - 2026-05-13
+
+### Fixed
+
+- **Canvas 布局不对齐问题** (web-map-generator/v2)
+  - 大画幅下 canvas 超出 `canvas-wrap` 容器
+  - 修复：`.canvas-wrap` 的 `overflow: auto` 改为 `overflow: hidden`
+  - 修复：添加 `min-width: 0` 防止 flex 子项撑开父容器
+  - 修复：canvas 添加 `max-height: 100%` 和 `width: auto; height: auto`
+
+- **岛屿重叠和聚拢问题** (web-map-generator/v2)
+  - 空间不足时只放置少量岛屿
+  - 新增 `tryPlace()` 方法封装放置逻辑
+  - 实现三级降级策略：先尝试原始参数，再缩小岛屿半径，最后放宽边界约束
+  - 统计信息显示实际放置的岛屿数量
+
+- **岛屿边界不一致问题** (web-map-generator/v2)
+  - `placeOnMap` 中 `halfSize` 缺少 `COLLISION_PADDING`
+  - 与 `getCollisionRadius()` 计算不一致，导致岛屿可能超出边界
+  - 修复：将所有 `halfSize` 引用替换为 `island.getCollisionRadius()`
+  - 测试用例：320×320 画幅、10个岛屿
+
+- **岛屿超出边界问题** (web-map-generator/v2)
+  - 对象化重构后岛屿仍可能超出画布边界
+  - 网格分区放置时随机偏移未考虑岛屿实际尺寸
+  - 修复：使用 `getCollisionRadius()` 计算安全边界约束岛屿中心位置
+  - 修复兜底逻辑同样使用安全边界约束
+  - 测试用例：320×320 画幅、6个岛屿
+
+- **岛屿边界安全距离不统一问题** (web-map-generator/v2)
+  - `fitsInBounds` 使用岛屿各自的 `collisionRadius`，但 `safeBound` 使用随机生成的 `collisionR`
+  - 导致边界约束不一致，岛屿可能超出边界
+  - 修复：新增 `unifiedBoundaryMargin` - 基于最大岛屿半径统一计算所有岛屿的安全边界
+  - 测试用例：320×320 画幅、10个岛屿
+
+- **岛屿坐标超出画布问题** (web-map-generator/v2)
+  - 修正边界计算公式：`maxBoundX = W - ceil(maxNoiseRadius) - CENTER_MARGIN`
+  - 确保岛屿中心在安全范围内，多边形不会超出边界
+  - 测试用例：320×320 画幅、6 个岛屿
+
+### Changed
+
+- **岛屿/特征数量改为范围随机数**
+  - 所有数量参数（岛屿、山峰、湖泊、森林）改为 min-max 范围形式
+  - 默认值上下界相同，保持固定数量行为
+  - 用户可设置不同值实现随机数量
+
+- **Ocean 改为 Air/Vacuum**
+  - 常量名从 `OCEAN` 改为 `AIR_VACUUM`
+  - 图例从"海洋 Ocean"改为"空域 Air / Vacuum"
+
+- **岛屿生成算法重构** (web-map-generator/v2)
+  - 从"先生成多边形再放置"改为"先确定位置再生成地形"
+  - 新增 `IslandPosition` 类 - 只存储位置和半径信息
+  - 新增 `IslandPlacer` 类 - Poisson Disk Sampling 风格放置算法
+  - 完全随机位置 + 最小间距检测，避免网格对齐
+
+### Refactored
+
+- **代码结构优化**
+  - 新增 `getMapParams()` - 获取地图基础参数
+  - 新增 `getRangeParams()` - 获取所有范围参数，自动确保 min <= max
+  - 新增 `randInRange(rng, [lo, hi])` - 从范围随机取值
+  - 新增 `getLandCells()` - 获取所有陆地单元格
+  - 新增 `genFeatures()` - 通用特征生成函数
+  - 新增 `render()` - 渲染地图
+  - 新增 `updateStats()` - 更新统计信息
+  - 主函数 `generate()` 重构，更加简洁清晰
+
+- **提取所有魔法数字为常量表** (web-map-generator/v2)
+  - `TERRAIN` - 地形类型枚举（AIR_VACUUM, LAND, MOUNTAIN, LAKE, FOREST）
+  - `ISLAND` - 岛屿生成参数（采样点、噪声强度、半径比例、碰撞间距等）
+  - `POLY` - 多边形噪声参数（漂移衰减系数）
+  - `FEATURE` - 特征生成参数（山峰/湖泊/森林的采样点和噪声强度）
+  - `RENDER` - 渲染参数（阴影透明度、最小tile大小）
+
+### Style
+
+- `.range-sep` 样式优化：移除 `padding-top`，使用 `line-height: 1` 实现垂直居中
+
+### Docs
+
+- **CODEBASE_STATE.md 更新**
+  - 添加完整常量表文档
+  - 添加 TERRAIN 枚举说明

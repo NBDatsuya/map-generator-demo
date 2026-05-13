@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Island Map Generator</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <header class="header">
+        <h1>🗺️ Island Map Generator</h1>
+        <p class="subtitle">Procedural Island & Environment Generator</p>
+      </header>
+
+      <div class="main-content">
+        <!-- Left Panel: Parameters Form -->
+        <aside class="panel panel-left">
+          <h2>Parameters / 参数</h2>
+          <form id="mapForm">
+            <!-- Map Settings -->
+            <fieldset>
+              <legend>Map / 地图</legend>
+              <div class="form-group">
+                <label for="width">Width / 宽度</label>
+                <input
+                  type="number"
+                  id="width"
+                  name="width"
+                  value="100"
+                  min="20"
+                  max="500"
+                />
+              </div>
+              <div class="form-group">
+                <label for="height">Height / 高度</label>
+                <input
+                  type="number"
+                  id="height"
+                  name="height"
+                  value="80"
+                  min="20"
+                  max="500"
+                />
+              </div>
+              <div class="form-group">
+                <label for="seed">Seed / 种子</label>
+                <input
+                  type="number"
+                  id="seed"
+                  name="seed"
+                  placeholder="Random / 随机"
+                />
+              </div>
+            </fieldset>
+
+            <!-- Island Settings -->
+            <fieldset>
+              <legend>Islands / 岛屿</legend>
+              <div class="form-group">
+                <label for="numIslands">Number / 数量</label>
+                <input
+                  type="number"
+                  id="numIslands"
+                  name="numIslands"
+                  value="1"
+                  min="1"
+                  max="20"
+                />
+                <small id="radiiHint">Default: 35</small>
+              </div>
+              <div class="form-group">
+                <label for="radii">Radii / 半径</label>
+                <textarea
+                  id="radii"
+                  name="radii"
+                  placeholder="e.g., 35 or 35,30,25"
+                >35</textarea>
+                <small>Single value auto-repeats, or comma-separated for each island</small>
+              </div>
+            </fieldset>
+
+            <!-- Environment Settings -->
+            <fieldset>
+              <legend>Environment / 环境</legend>
+              <div class="form-group">
+                <label for="environments">Types & Weights / 类型与权重</label>
+                <input
+                  type="text"
+                  id="environments"
+                  name="environments"
+                  value="forest:5, plains:3, water:2, mountain:1"
+                />
+                <small
+                  >Format: name:weight, name:weight / 格式：名称:权重,
+                  名称:权重</small
+                >
+              </div>
+            </fieldset>
+
+            <!-- Advanced Settings -->
+            <fieldset>
+              <legend>Advanced / 高级</legend>
+              <div class="form-group">
+                <label for="baseSwitch">Base Switch Probability</label>
+                <input
+                  type="range"
+                  id="baseSwitch"
+                  name="baseSwitch"
+                  min="0.01"
+                  max="0.5"
+                  step="0.01"
+                  value="0.03"
+                />
+                <span class="value-display" id="baseSwitchValue">0.03</span>
+              </div>
+              <div class="form-group">
+                <label for="switchGrowth">Switch Growth per Cell</label>
+                <input
+                  type="range"
+                  id="switchGrowth"
+                  name="switchGrowth"
+                  min="0.0001"
+                  max="0.01"
+                  step="0.0001"
+                  value="0.0025"
+                />
+                <span class="value-display" id="switchGrowthValue">0.0025</span>
+              </div>
+              <div class="form-group">
+                <label for="adjacencyBias">Adjacency Bias</label>
+                <input
+                  type="range"
+                  id="adjacencyBias"
+                  name="adjacencyBias"
+                  min="0"
+                  max="1"
+                  step="0.05"
+                  value="0.35"
+                />
+                <span class="value-display" id="adjacencyBiasValue">0.35</span>
+              </div>
+              <div class="form-group">
+                <label for="cohesionBias">Cohesion Bias</label>
+                <input
+                  type="range"
+                  id="cohesionBias"
+                  name="cohesionBias"
+                  min="0"
+                  max="1"
+                  step="0.05"
+                  value="0.20"
+                />
+                <span class="value-display" id="cohesionBiasValue">0.20</span>
+              </div>
+            </fieldset>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn-generate" id="generateBtn">
+              <span class="btn-text">Generate Map / 生成地图</span>
+              <span class="btn-loading" style="display: none"
+                >Generating... / 生成中...</span
+              >
+            </button>
+          </form>
+        </aside>
+
+        <!-- Right Panel: Map Preview -->
+        <main class="panel panel-right">
+          <h2>Preview / 预览</h2>
+          <div class="map-container" id="mapContainer">
+            <div class="placeholder" id="placeholder">
+              <p>Click "Generate Map" to preview</p>
+              <p>点击"生成地图"以预览</p>
+            </div>
+            <img id="mapImage" style="display: none" alt="Generated Map" />
+          </div>
+
+          <!-- Legend -->
+          <div
+            class="legend-container"
+            id="legendContainer"
+            style="display: none"
+          >
+            <h3>Legend / 图例</h3>
+            <div class="legend" id="legend"></div>
+          </div>
+
+          <!-- Info -->
+          <div class="info" id="infoContainer" style="display: none">
+            <p>Seed: <span id="infoSeed"></span></p>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </body>
+</html>

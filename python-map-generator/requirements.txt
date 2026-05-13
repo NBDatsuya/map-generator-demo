@@ -1,0 +1,16 @@
+# ---------------------------
+# Python Dependencies
+# Python 依赖
+# ---------------------------
+#
+# Island Map Generator - Flask Web Application
+# 岛屿地图生成器 - Flask Web 应用
+#
+# Install with: pip install -r requirements.txt
+
+# Web framework / Web 框架
+Flask>=2.0.0
+
+# For generating PNG images / 用于生成 PNG 图片
+# (zlib is included in Python standard library)
+# (zlib 已包含在 Python 标准库中)
