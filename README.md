@@ -2,7 +2,7 @@
 
 岛屿地图程序化生成器项目，采用 monorepo 结构，包含多个独立实现。
 
-## 项目结构
+## 仓库构成
 
 ```
 map-generate-demo/
@@ -52,7 +52,38 @@ python app.py
 >
 > Prototype by David & Huang Saša
 
-**技术栈**：原生 HTML + CSS + JavaScript
+**技术栈**：原生 HTML + CSS + JavaScript（模块化架构）
+
+### 目录结构
+
+```
+web-map-generator/v2/
+├── index.html      # 主页面（UI 布局和控件）
+├── index.js        # 入口文件（初始化应用）
+├── style.css       # 样式表（深色主题）
+└── js/
+    ├── generator.js    # 核心生成逻辑
+    │   ├── TERRAIN 地形类型枚举
+    │   ├── ISLAND/ POLY/ FEATURE/ RENDER 常量
+    │   ├── Island 类 - 岛屿数据结构
+    │   ├── IslandPlacer 类 - 岛屿放置算法
+    │   ├── genPoly() - 噪声多边形生成
+    │   ├── fillPoly() - 多边形填充
+    │   ├── pickLandPoints() - 空间哈希均匀选取
+    │   ├── render() - 地图渲染
+    │   └── generateMap() - 主入口
+    ├── controller.js   # 界面控制器
+    │   ├── init() - 初始化事件监听
+    │   ├── exportMapData() - 导出地图 JSON
+    │   ├── copyToClipboard() - 复制到剪贴板
+    │   └── compressExportData() - 压缩导出数据
+    └── compress.js     # 数据压缩模块
+        ├── encodeRLE/ decodeRLE - 游程编码
+        ├── encodeCoordinates/ decodeCoordinates - 坐标压缩
+        ├── compressIslandGrid/ decompressIslandGrid - 岛屿网格压缩
+        ├── compressVertices/ decompressVertices - 顶点压缩
+        └── compressExportData/ decompressExportData - 完整数据压缩
+```
 
 ### 核心算法
 
@@ -75,6 +106,51 @@ python app.py
 - **默认值**：上下界相同，保持固定数量行为
 - **用户可调**：设置不同值实现随机数量
 
+#### 岛屿数据结构
+
+```javascript
+Island {
+  id: number,
+  centerX: number,      // 岛屿中心 X
+  centerY: number,      // 岛屿中心 Y
+  radius: number,        // 基础半径
+  collisionRadius: number, // 碰撞半径（用于碰撞检测）
+  vertices: [[x,y], ...], // 噪声多边形顶点
+  grid: [[x, y, type], ...], // 岛屿网格数据（只存储非空格子）
+  offsetX: number,      // 在全局地图中的 X 偏移
+  offsetY: number,      // 在全局地图中的 Y 偏移
+  width: number,        // 岛屿边界框宽度
+  height: number        // 岛屿边界框高度
+}
+```
+
+#### 数据导出格式
+
+```json
+{
+  "metadata": {
+    "version": "v2-a2",
+    "exportedAt": "2026-05-13T...",
+    "compressed": true,
+    "compressFormat": "v1"
+  },
+  "params": { /* 地图参数 */ },
+  "terrainEnum": { /* 地形类型枚举 */ },
+  "islands": [
+    {
+      "id": 0,
+      "centerX": 160,
+      "centerY": 160,
+      "radius": 18,
+      "collisionRadius": 29.2,
+      "vertices":  "/* 压缩的顶点数据 */" ,
+      "grid": "/* 压缩的网格数据 */ "
+    }
+  ]
+}
+```
+
+
 ### 快速开始
 
 直接在浏览器中打开 `web-map-generator/v2/index.html`
@@ -83,16 +159,18 @@ python app.py
 
 ## 算法对比
 
-| 特性     | python-map-generator | web-map-generator      |
-| -------- | -------------------- | ---------------------- |
-| 岛屿连接 | 链式连接（桥梁）     | 独立岛屿               |
-| 环境分布 | 连续渐变区域         | 离散点状分布           |
-| 岛屿形状 | 噪声多边形           | 噪声多边形             |
-| 布局策略 | 链式生长             | 位置优先 + 碰撞检测    |
-| 特征分布 | 洪水填充扩散         | 空间哈希均匀选取       |
-| 岛屿数量 | 固定数量             | 范围随机数             |
-| 交互方式 | 网页滑块控制         | 实时滑块控制           |
-| 运行环境 | 需要 Python + Flask  | 纯浏览器（无需服务器） |
+| 特性     | python-map-generator | web-map-generator       |
+| -------- | -------------------- | ----------------------- |
+| 岛屿连接 | 链式连接（桥梁）     | 独立岛屿                |
+| 环境分布 | 连续渐变区域         | 离散点状分布            |
+| 岛屿形状 | 噪声多边形           | 噪声多边形              |
+| 布局策略 | 链式生长             | 位置优先 + 碰撞检测     |
+| 特征分布 | 洪水填充扩散         | 空间哈希均匀选取        |
+| 数据结构 | 全局 2D 网格         | 独立岛屿网格 + 稀疏存储 |
+| 导出功能 | 无                   | gzip + base64 压缩 JSON |
+| 岛屿数量 | 固定数量             | 范围随机数              |
+| 交互方式 | 网页滑块控制         | 实时滑块控制            |
+| 运行环境 | 需要 Python + Flask  | 纯浏览器（无需服务器）  |
 
 ---
 
