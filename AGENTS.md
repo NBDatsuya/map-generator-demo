@@ -17,6 +17,18 @@ Project conventions for AI coding agents working on
 - **`AGENTS.md` (this file) changes only when the user asks to change a rule.** Feature work never touches it.
 - Use only English for better understanding and token saving.
 
+### Git commit message policy
+
+- **All commit messages must be in English.** This includes subject line and body if any.
+- Use conventional commit format: `type(scope): description`
+  - Types: `feat`, `fix`, `refactor`, `style`, `docs`, `chore`, etc.
+  - Scope: optional, e.g., `(wmgv2)`, `(pymg)`, etc.
+  - Description: imperative mood, lowercase, no period at end
+- Examples:
+  - `feat(wmgv2): add island generation algorithm`
+  - `fix: resolve collision detection bug`
+  - `docs: update README`
+
 ### The contract
 
 1. **Before coding**, skim §1–§12 of this file once per session, then check `CODEBASE_STATE.md` for any relevant technical details.
