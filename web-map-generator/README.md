@@ -2,6 +2,8 @@
 
 纯 HTML/CSS/JS 实现，无需服务器。
 
+> Prototype by David & Huang Saša
+
 ## 技术栈
 
 原生 HTML + CSS + JavaScript（无外部依赖）
