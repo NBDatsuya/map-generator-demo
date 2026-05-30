@@ -71,6 +71,13 @@
         "stringKey": "ground_tech_floor",
         "color": "#61708A",
         "enabled": true
+      },
+      {
+        "id": 9,
+        "name": "Cobble",
+        "stringKey": "",
+        "color": "#f242ff",
+        "enabled": true
       }
     ],
     "decalTypes": [
@@ -637,11 +644,6 @@
         },
         {
           "x": 17,
-          "y": 6,
-          "ground": 1
-        },
-        {
-          "x": 17,
           "y": 7,
           "ground": 1
         },
@@ -744,46 +746,208 @@
           "x": 13,
           "y": 7,
           "ground": 6
+        },
+        {
+          "x": 1,
+          "y": 1,
+          "ground": 0
+        },
+        {
+          "x": 7,
+          "y": 2,
+          "ground": 5
+        },
+        {
+          "x": 8,
+          "y": 2,
+          "ground": 5
+        },
+        {
+          "x": 9,
+          "y": 2,
+          "ground": 5
+        },
+        {
+          "x": 10,
+          "y": 2,
+          "ground": 5
+        },
+        {
+          "x": 11,
+          "y": 2,
+          "ground": 5
+        },
+        {
+          "x": 12,
+          "y": 2,
+          "ground": 5
+        },
+        {
+          "x": 13,
+          "y": 2,
+          "ground": 5
+        },
+        {
+          "x": 14,
+          "y": 2,
+          "ground": 5
+        },
+        {
+          "x": 15,
+          "y": 2,
+          "ground": 5
+        },
+        {
+          "x": 16,
+          "y": 2,
+          "ground": 5
+        },
+        {
+          "x": 16,
+          "y": 3,
+          "ground": 5
+        },
+        {
+          "x": 16,
+          "y": 4,
+          "ground": 5
+        },
+        {
+          "x": 17,
+          "y": 4,
+          "ground": 5
+        },
+        {
+          "x": 17,
+          "y": 5,
+          "ground": 5
+        },
+        {
+          "x": 17,
+          "y": 6,
+          "ground": 5
+        },
+        {
+          "x": 17,
+          "y": 3,
+          "ground": 5
+        },
+        {
+          "x": 17,
+          "y": 2,
+          "ground": 5
+        },
+        {
+          "x": 17,
+          "y": 1,
+          "ground": 5
+        },
+        {
+          "x": 16,
+          "y": 1,
+          "ground": 5
+        },
+        {
+          "x": 15,
+          "y": 1,
+          "ground": 5
+        },
+        {
+          "x": 14,
+          "y": 1,
+          "ground": 5
+        },
+        {
+          "x": 13,
+          "y": 1,
+          "ground": 5
+        },
+        {
+          "x": 12,
+          "y": 1,
+          "ground": 5
+        },
+        {
+          "x": 11,
+          "y": 1,
+          "ground": 5
+        },
+        {
+          "x": 10,
+          "y": 1,
+          "ground": 5
+        },
+        {
+          "x": 9,
+          "y": 1,
+          "ground": 5
+        },
+        {
+          "x": 8,
+          "y": 1,
+          "ground": 5
+        },
+        {
+          "x": 7,
+          "y": 1,
+          "ground": 5
+        },
+        {
+          "x": 6,
+          "y": 1,
+          "ground": 5
+        },
+        {
+          "x": 6,
+          "y": 2,
+          "ground": 5
+        },
+        {
+          "x": 6,
+          "y": 3,
+          "ground": 5
+        },
+        {
+          "x": 5,
+          "y": 3,
+          "ground": 5
+        },
+        {
+          "x": 5,
+          "y": 2,
+          "ground": 5
+        },
+        {
+          "x": 5,
+          "y": 1,
+          "ground": 5
         }
       ]
     }
   ],
   "layers": {
-    "decals": [],
+    "decals": [
+      {
+        "id": "decal_000",
+        "typeId": 1001,
+        "x": 13,
+        "y": 6,
+        "islandId": "island_001"
+      },
+      {
+        "id": "decal_001",
+        "typeId": 1001,
+        "x": 13,
+        "y": 5,
+        "islandId": "island_001"
+      }
+    ],
     "resources": [
       {
         "id": "resource_000",
         "typeId": 2001,
         "x": 7,
         "y": 7,
-        "islandId": "island_001"
-      },
-      {
-        "id": "resource_001",
-        "typeId": 2001,
-        "x": 6,
-        "y": 6,
-        "islandId": "island_001"
-      },
-      {
-        "id": "resource_002",
-        "typeId": 2001,
-        "x": 7,
-        "y": 5,
-        "islandId": "island_001"
-      },
-      {
-        "id": "resource_003",
-        "typeId": 2003,
-        "x": 13,
-        "y": 6,
-        "islandId": "island_001"
-      },
-      {
-        "id": "resource_004",
-        "typeId": 2003,
-        "x": 14,
-        "y": 5,
         "islandId": "island_001"
       }
     ],
@@ -796,18 +960,29 @@
         "islandId": "island_001"
       }
     ],
-    "largeSprites": []
+    "largeSprites": [
+      {
+        "id": "large_000",
+        "typeId": 4004,
+        "x": 15,
+        "y": 7,
+        "islandId": "island_001",
+        "width": 2,
+        "height": 2,
+        "anchor": "topLeft"
+      }
+    ]
   },
   "_nid": {
-    "gT": 9,
+    "gT": 10,
     "dT": 1005,
     "rT": 2007,
     "nT": 3006,
     "lT": 4009,
     "isl": 2,
-    "dI": 0,
-    "rI": 5,
-    "nI": 1,
-    "lI": 0
+    "dI": 2,
+    "rI": null,
+    "nI": null,
+    "lI": 1
   }
 }

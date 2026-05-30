@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-05-25T11:06:02.256Z",
+  "updatedAt": "2026-05-30T06:40:04.038Z",
   "toolset": {
     "groundTypes": [
       {
@@ -64,6 +64,13 @@
         "name": "Ancient Tech Floor",
         "stringKey": "ground_tech_floor",
         "color": "#61708A",
+        "enabled": true
+      },
+      {
+        "id": 9,
+        "name": "Cobble",
+        "stringKey": "",
+        "color": "#f242ff",
         "enabled": true
       }
     ],
